@@ -136,7 +136,7 @@ Plugins are added inside the `plugins` array. Additional JavaScript libraries th
 * Minify bundle.
 * Etc.
 
-## `terser-webpack-plugin`
+## terser-webpack-plugin
 Webpack 5 comes with `terser-webpack-plugin` out of the box, but it must be installed in order to customize the options.
 * Webpack 4 and below does not come with the plugin.
 * uses `terser` to minify JavaScript.
@@ -147,7 +147,7 @@ plugins: [
 ```
 ---
 
-## `mini-css-extract-plugin`
+## mini-css-extract-plugin
 Create a separate CSS file rather than bundling it with the JS file like `style-loader` does.
 * Builds on top of a Webpack 5 feature, thus Webpack 5 is required for this plugin to work.
 * Recommended to combine `mini-css-extract-plugin` with `css-loader`.
