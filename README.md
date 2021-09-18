@@ -1,6 +1,9 @@
 # Webpack 5 Boilerplate
 
-Webpack has been notoriously difficult for me to learn, so I decided to create my own boilerplate.
+Webpack has been notoriously difficult for me to implement in the past, so I decided to learn by doing.
+
+The intent of this project is to familiarize myself with how webpack works by going through documentation and setting up the best webpack boilerplate I can. This is also an exercise in autonomy and self-study.
+
 I'm using this readme as a place to write some notes that will serve as lightweight documentation for future reference.
 
 &nbsp;
