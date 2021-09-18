@@ -21,7 +21,7 @@ module: {
 ```
 ---
 
-## `asset/resource`
+## asset/resource
 Type `asset/resource` includes the file in the bundled html as a path.
 * This is great for importing large files like a JPG because it allows the browser to download it separately. This keeps the bundle size from bloating.
 ```
@@ -34,7 +34,7 @@ rules: [
 ```
 ---
 
-## `asset/inline`
+## asset/inline
 Type `asset/inline` includes the file in the bundled html as inline html.
 * This is great for SVG's because since they're inline, the browser will not make separate requests for each SVG file.
 * This is bad for JPG's because it will turn them to base64 in order to include them inline. This enlarges the size of the bundle dramatically.
@@ -48,7 +48,7 @@ rules: [
 ```
 ---
 
-## `asset`
+## asset
 Type `asset` will allow webpack to make it's own decision based on file size.
 * `asset/inline` is chosen if file size is less than 8kb.
 * `asset/resource` is chosen if file size is greater than 8kb.
@@ -68,7 +68,7 @@ rules: [
 ```
 ---
 
-## `asset/source`
+## asset/source
 Type `asset/source` converts content of file into a JavaScript `string` and injects it into the bundle as is.
 * This is useful for `.txt` files.
 ```
@@ -85,7 +85,7 @@ rules: [
 # Loaders
 While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
 
-## `CSS`
+## CSS
 * `css-loader` only reads and returns contents of css file.
 * `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`.
 
@@ -101,7 +101,7 @@ rules: [
 ```
 ---
 &nbsp;
-## `Babel`
+## Babel
 Babel allows newer ECMAScript features to be transpiled into older versions. This allows new ECMAScript features to be used during development without compromising browser compatability during production.
 * Important to exclude `node_modules`
 * `@babel/env` compiles ECMAScript 6 and newer to ECMAScript 5.
@@ -172,3 +172,4 @@ plugins: [
   })
 ]
 ```
+---
