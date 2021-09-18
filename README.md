@@ -1,13 +1,22 @@
-# Webpack Boilerplate
+# Webpack 5 Boilerplate
 
-Webpack has been notoriously difficult for me to learn, so this project is a way for me to learn how to use it properly and create a little boilerplate and guide for myself.
+Webpack has been notoriously difficult for me to learn, so I decided to create my own boilerplate.
+I'm using this readme as a place to write some notes that will serve as lightweight documentation for future reference.
 
+&nbsp;
 # Rules:
 
-Rules must be placed inside an array within `module` like so:
+Rules must be placed inside an array within the `module` object. Individual rules will be contained inside an anonymous object.
 ```
 module: {
-  rules: []
+  rules: [
+    {
+      // Rules will live here
+    },
+    {
+      // This is how to implement a second rule
+    }
+  ]
 }
 ```
 ---
@@ -18,7 +27,7 @@ Type `asset/resource` includes the file in the bundled html as a path.
 ```
 rules: [
   {
-    test: /\.(png|jpg)$/,
+    test: /\.(png|jpg|gif)$/,
     type: 'asset/resource'
   }
 ]
@@ -41,13 +50,13 @@ rules: [
 
 ## `asset`
 Type `asset` will allow webpack to make it's own decision based on file size.
-* `asset/inline` chosen if file size is less than 8kb.
-* `asset/resource` chosen if file size is greater than 8kb.
+* `asset/inline` is chosen if file size is less than 8kb.
+* `asset/resource` is chosen if file size is greater than 8kb.
 * 8kb is the default setting and can be changed by using the `parser` setting as demonstrated below.
 ```
 rules: [
   {
-    test: /\.svg/,
+    test: /\.svg$/,
     type: 'asset',
     parser: {
       dataUrlCondition: {
@@ -65,8 +74,56 @@ Type `asset/source` converts content of file into a JavaScript `string` and inje
 ```
 rules: [
   {
-    tests: /\.txt/,
+    tests: /\.txt$/,
     type: 'asset/source'
   }
 ]
 ```
+
+
+&nbsp;
+# Loaders
+While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
+
+## `CSS`
+* `css-loader` only reads and returns contents of css file.
+* `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`.
+
+```
+rules: [
+  {
+    tests: /\.css$/,
+    use: [
+      'style-loader', 'css-loader'
+    ]
+  }
+]
+```
+---
+&nbsp;
+## `Babel`
+Babel allows newer ECMAScript features to be transpiled into older versions. This allows new ECMAScript features to be used during development without compromising browser compatability during production.
+* Important to exclude `node_modules`
+* `@babel/env` compiles ECMAScript 6 and newer to ECMAScript 5.
+* Babel plugins handle new features not covered by `@babel/env`
+
+*Plugin/Preset order matters!*
+* Plugins run before presets
+* Plugin ordering is first to last
+* Preset ordering is reversed (last to first)
+```
+rules: [
+  {
+    tests: /\.js$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: [ '@babel/preset-env' ],
+        plugins: [ '@babel/plugin-proposal-class-properties' ]
+      }
+    }
+  }
+]
+```
+---
