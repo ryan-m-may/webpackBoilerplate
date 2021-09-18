@@ -92,7 +92,7 @@ While Webpack includes asset loaders out of the box, any additional loaders must
 ```
 rules: [
   {
-    tests: /\.css$/,
+    test: /\.css$/,
     use: [
       'style-loader', 'css-loader'
     ]
@@ -114,7 +114,7 @@ Babel allows newer ECMAScript features to be transpiled into older versions. Thi
 ```
 rules: [
   {
-    tests: /\.js$/,
+    test: /\.js$/,
     exclude: /node_modules/,
     use: {
       loader: 'babel-loader',
@@ -127,3 +127,48 @@ rules: [
 ]
 ```
 ---
+&nbsp;
+# Plugins
+
+Plugins are added inside the `plugins` array. Additional JavaScript libraries that can handle additional tasks besides loading:
+* Modify how bundles are created.
+* Define global constants.
+* Minify bundle.
+* Etc.
+
+## `terser-webpack-plugin`
+Webpack 5 comes with `terser-webpack-plugin` out of the box, but it must be installed in order to customize the options.
+* Webpack 4 and below does not come with the plugin.
+* uses `terser` to minify JavaScript.
+```
+plugins: [
+  new TerserPlugin()
+]
+```
+---
+
+## `mini-css-extract-plugin`
+Create a separate CSS file rather than bundling it with the JS file like `style-loader` does.
+* Builds on top of a Webpack 5 feature, thus Webpack 5 is required for this plugin to work.
+* Recommended to combine `mini-css-extract-plugin` with `css-loader`.
+* Needs to be added to the CSS rule:
+```
+rules: [
+  {
+    test: /\.css$/,
+    use: [
+      MiniCssExtractPlugin.loader,
+      "css-loader",
+    ],
+  },
+],
+```
+* Needs to be added to plugins.
+* Output filename can be set like so:
+```
+plugins: [
+  new MiniCssExtractPlugin({
+    filename: 'styles.css',
+  })
+]
+```
