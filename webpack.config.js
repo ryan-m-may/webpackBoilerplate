@@ -13,6 +13,14 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         type: 'asset/resource'
+      },
+      {
+        test: /\.svg/,
+        type: 'asset/inline'
+      },
+      {
+        tests: /\.txt/,
+        type: 'asset/source'
       }
     ]
   }
