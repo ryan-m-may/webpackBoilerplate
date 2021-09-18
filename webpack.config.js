@@ -1,4 +1,3 @@
-// Can't use ECMAScript modules here, need to use 'require'
 const path = require('path');
 
 module.exports = {
@@ -6,6 +5,15 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
+    public: 'dist/',
   },
   mode: 'none',
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        type: 'asset/resource'
+      }
+    ]
+  }
 }
