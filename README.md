@@ -1,10 +1,10 @@
 # Webpack 5 Boilerplate
 
-Webpack has been notoriously difficult for me to implement in the past, so I decided to learn by doing.
+The intent of this project is to familiarize myself with how webpack works by diving into the documentation and setting up the best webpack boilerplate I can. This is also an exercise in autonomy and self-study.
 
-The intent of this project is to familiarize myself with how webpack works by going through documentation and setting up the best webpack boilerplate I can. This is also an exercise in autonomy and self-study.
+I haven't found much *good* content online regarding webpack, it seems most tutorials and blogs revolve around `create-react-app`, so I'm using this readme to create my own lightweight documentation for future reference. That's what we do as software developers, right?
 
-I'm using this readme as a place to write some notes that will serve as lightweight documentation for future reference.
+If it doesn't exist, make it! If it exists, but you don't like it, make something better!
 
 &nbsp;
 # Rules:
