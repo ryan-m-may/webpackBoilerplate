@@ -103,7 +103,7 @@ rules: [
 ]
 ```
 ---
-&nbsp;
+
 ## Babel
 Babel allows newer ECMAScript features to be transpiled into older versions. This allows new ECMAScript features to be used during development without compromising browser compatability during production.
 * Important to exclude `node_modules`
@@ -177,6 +177,18 @@ plugins: [
 ```
 ---
 
+## clean-webpack-plugin
+In order to keep the `dist` directory clean, it's essential to remove files upon each build. This is especially important when using hashed names, because old files are not overwritten or saved over.
+
+`clean-webpack-plugin` solves this problem.
+```
+plugins: [
+  new CleanWebpackPlugin()
+],
+```
+---
+
+&nbsp;
 # Browser Caching
 
 Browsers download assets before loading websites. Each time a user reloads a page, the browser downloads all of the files again. This is inefficient.
