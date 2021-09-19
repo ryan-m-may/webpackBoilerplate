@@ -176,3 +176,31 @@ plugins: [
 ]
 ```
 ---
+
+# Browser Caching
+
+Browsers download assets before loading websites. Each time a user reloads a page, the browser downloads all of the files again. This is inefficient.
+
+Browsers can cache files to save time. This introduces a problem: If you change a file, the user's browser won't download the new one if it has the same name, because browsers remember files by name.
+
+To solve this, use content hash, which creates a hash based on the contents of the file.
+
+*HOW COOL IS THAT!?*
+
+* This is a feature included in webpack and nothing needs to be installed.
+* add `[contenthash]` wherever a filename is specified, such as the `output` object:
+
+```
+output: {
+  filename: 'bundle.[contenthash].js',
+}
+```
+* Or the minified CSS file:
+```
+plugins: [
+  new MiniCssExtractPlugin({
+    filename: 'styles.[contenthash].css',
+  })
+],
+```
+---
