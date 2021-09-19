@@ -17,6 +17,8 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 * Development
 * Production
 
+## [Webpack Dev Server](https://github.com/ryan-m-may/webpackBoilerplate#webpack-dev-server-1)
+
 ## [Rules](https://github.com/ryan-m-may/webpackBoilerplate#rules-1)
 
 ## [Asset Modules](https://github.com/ryan-m-may/webpackBoilerplate#asset-modules-1)
@@ -86,7 +88,47 @@ Each is designed to cater to it's corresponding environment better and will have
 
 ---
 &nbsp;
-# Rules:
+# Webpack Dev Server
+
+Link to [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) documentation.
+
+Link to [webpack-dev-server](https://github.com/webpack/webpack-dev-server) github repo.
+
+While developing new features, build time is costly. Quick build changes are valuable.
+
+* `port`: Port where dev-server will be running.
+* `static`: What will be served on that port.
+* `devMiddleware`:
+    * `index`: file that will be used as index file.
+    * `writeToDisk`: By default, `webpack-dev-server` generates files in memory and doesn't save them to the disk. Dist will be empty, even though application is available in the browser. If set to `true`, `webpack-dev-server` writes generated files to dist directory.
+
+```
+devServer: {
+  port: 3000,
+  static: {
+    directory: path.resolve(__dirname, './dist'),
+  },
+  devMiddleware: {
+    index: 'index.html',
+    writeToDisk: true,
+  }
+}
+```
+Inside `package.json`, both `serve` and `--hot` need to be added to the `dev` script.
+* `serve` is the command for `webpack-dev-server`
+* `--hot` is the command for hot module replacement. `HMR` exchanges, adds, or removes modules while an application is running, without a full reload.
+    * Retain application state which is lost during a full reload.
+    * Instantly update the browser when modifications are made to CSS/JS in the source code, which is almost comparable to changing styles directly in the browser's dev tools.
+
+```
+"scripts": {
+  "dev": "webpack serve --config webpack.development.config.js --hot"
+}
+```
+
+---
+&nbsp;
+# Rules
 
 Rules must be placed inside an array within the `module` object. Individual rules will be contained inside an anonymous object.
 ```
