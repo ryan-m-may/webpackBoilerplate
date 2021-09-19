@@ -81,8 +81,8 @@ module.exports = {
 }
 ```
 I have built two separate webpack config files:
-* `webpack.development.config.js`
-* `webpack.production.config.js`
+* `webpack.development.config.js` for development bundles.
+* `webpack.production.config.js` for production bundles.
 
 Each is designed to cater to it's corresponding environment better and will have a separate `npm` script in `package.json`.
 
@@ -118,7 +118,7 @@ module.exports = {
 ```
 Inside `package.json`, both `serve` and `--hot` need to be added to the `dev` script.
 * `serve` is the command to start `webpack-dev-server`
-* `--hot` is the command for hot module replacement. `HMR` exchanges, adds, or removes modules while an application is running, without a full reload.
+* `--hot` is the command for [hot module replacement](https://webpack.js.org/concepts/hot-module-replacement/). `HMR` exchanges, adds, or removes modules while an application is running, without a full reload.
 
 
 ```
@@ -134,17 +134,21 @@ Inside `package.json`, both `serve` and `--hot` need to be added to the `dev` sc
 &nbsp;
 # Rules
 
-Rules must be placed inside an array within the `module` object. Individual rules will be contained inside an anonymous object.
+Rules is an array of rules within the `module` object. Individual rules are anonymous object and have three parts: `conditions`, `results`, and `nested rules`.
+
+[Module documentation](https://webpack.js.org/configuration/module/)
 ```
-module: {
-  rules: [
-    {
-      // Rules will live here
-    },
-    {
-      // This is how to implement a second rule
-    }
-  ]
+module.exports = {
+  module: {
+    rules: [
+      {
+        // Rules will live here
+      },
+      {
+        // Another rule can live here
+      }
+    ]
+  }
 }
 ```
 ---
@@ -152,7 +156,10 @@ module: {
 &nbsp;
 # Asset Modules
 
-Enables asset files to be used without configuring additional loaders. Asset modules come built in with webpack 5 and things like `raw-loader`, `url-loader` and `file-loader` are unnecessary.
+Asset modules enable asset files to be used without configuring additional loaders. Asset modules come built in with webpack 5 and things like `raw-loader`, `url-loader` and `file-loader` are unnecessary.
+
+[Asset Modules documentation](https://webpack.js.org/guides/asset-modules/)
+
 
 ## asset/resource
 Type `asset/resource` emits a separate file and exports the URL. Previously done with `file-loader`.
@@ -228,6 +235,8 @@ rules: [
 # Loaders
 While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
 
+[Loader documentation](https://webpack.js.org/loaders/)
+
 ## CSS
 * `css-loader` only reads and returns contents of css file.
 * `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`. This is recommended for `development` mode.
@@ -274,27 +283,37 @@ rules: [
 &nbsp;
 # Plugins
 
-Plugins are added inside the `plugins` array. Additional JavaScript libraries that can handle additional tasks besides loading:
-* Modify how bundles are created.
-* Define global constants.
-* Minify bundle.
-* Etc.
+Plugins serve the purpose of doing anything else that loaders can't do. Webpack provides many plugins out of the box. Plugins are added inside the `plugins` array in the config file.
+
+[Plugin documentation](https://webpack.js.org/concepts/plugins/)
+
+[List of plugins](https://webpack.js.org/plugins/)
+
+---
 
 ## terser-webpack-plugin
 Webpack 5 comes with `terser-webpack-plugin` out of the box, but it must be installed in order to customize the options.
+
+`terser-webpack-plugin` documentation [here](https://webpack.js.org/plugins/terser-webpack-plugin/)
+
 * Webpack 4 and below does not come with the plugin.
 * uses `terser` to minify JavaScript.
 ```
 const TerserPlugin = require('terser-webpack-plugin');
 
-plugins: [
-  new TerserPlugin()
-]
+module.exports = {
+  plugins: [
+    new TerserPlugin()
+  ]
+}
 ```
 ---
 
 ## mini-css-extract-plugin
 Create a separate CSS file rather than bundling it with the JS file like `style-loader` does.
+
+`mini-css-extract-plugin` documentation [here](https://webpack.js.org/plugins/mini-css-extract-plugin/)
+
 * Recommended for `production` mode.
 * Builds on top of a Webpack 5 feature, thus Webpack 5 is required for this plugin to work.
 * Recommended to combine `mini-css-extract-plugin` with `css-loader`.
@@ -302,37 +321,66 @@ Create a separate CSS file rather than bundling it with the JS file like `style-
 ```
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-rules: [
-  {
-    test: /\.css$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      "css-loader",
-    ],
-  },
-],
+module.exports = {
+  rules: [
+    {
+      test: /\.css$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+      ],
+    },
+  ],
+}
 ```
 * In addition to adding the rule, it also needs to be addded to plugins.
 * Output filename can be set like so:
 ```
-plugins: [
-  new MiniCssExtractPlugin({
-    filename: 'styles.css',
-  })
-]
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  rules: [
+    {
+      test: /\.css$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+      ],
+    },
+  ],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    })
+  ]
+}
 ```
 ---
 
 ## clean-webpack-plugin
-In order to keep the `dist` directory clean, it's essential to remove files upon each build. This is especially important when using hashed names, because old files are not overwritten or saved over.
+In order to keep the `dist` directory clean, it's essential to remove files upon each build. This is especially important when using [hashed names](https://webpack.js.org/guides/caching/#output-filenames), because by default, files from previous builds are not removed or overwritten.
 
-`clean-webpack-plugin` solves this problem.
+`clean-webpack-plugin` solves this problem, however you can also use the `clean` option in `output`.
+
+`output.clean` documentation [here](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder)
+
+> ### Bug Note:
+>
+> As of writing this, there is currently a bug with `output.clean` when using `webpack-dev-server` if `devServer.writeToDisk` is set to `true`.
+>
+> I'm using `webpack` v5.53.0 and `webpack-dev-server` v4.2.1 currently.
+>
+> There's a discussion on github regarding this issue. To check it's current status go [here](https://github.com/webpack/webpack-dev-middleware/issues/861).
+>
+> As a workaround, I am currently using `clean-webpack-plugin` in development mode for the sake of using `webpack-dev-server`, but I'm using `output.clean` in my production configuration.
 ```
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-plugins: [
-  new CleanWebpackPlugin()
-],
+module.exports = {
+  plugins: [
+    new CleanWebpackPlugin()
+  ],
+}
 ```
 * Other directories can be cleaned with additional options.
 * File paths are relative to the directory specified in the `webpack.config.js` path variable.
@@ -342,14 +390,16 @@ plugins: [
 ```
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-plugins: [
-  new CleanWebpackPlugin({
-    cleanOnceBeforeBuildPatterns: [
-      '**/*',
-      path.join(process.cwd(), 'build/**/*')
-    ]
-  })
-]
+module.exports = {
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        '**/*',
+        path.join(process.cwd(), 'build/**/*')
+      ]
+    })
+  ]
+}
 ```
 ---
 
@@ -359,9 +409,11 @@ When hashed filenames are used, filepaths can no longer be hardcoded. `html-webp
 ```
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-plugins: [
-  new HtmlWebpackPlugin()
-]
+module.exports = {
+  plugins: [
+    new HtmlWebpackPlugin()
+  ]
+}
 ```
 
 Additional options can be specified for this plugin to enable more control of the generated file.
@@ -390,9 +442,11 @@ plugins: [
 
 Browsers download assets before loading websites. Each time a user reloads a page, the browser downloads all of the files again. This is inefficient.
 
-Browsers can cache files to save time. This introduces a problem: If you change a file, the user's browser won't download the new one if it has the same name, because browsers remember files by name.
+Browsers can cache files to save time, which solves that problem. Great! However, this introduces another problem: If you change a file without changing the name, the user's browser won't download that new file because it thinks it's the same file it currently has cached.
 
-To solve this, use content hash, which creates a hash based on the contents of the file.
+To solve this, use `[contenthash]`, which creates a hash based on the contents of the file. Every time the file is changed, it's parsed by the hashing function and a new hash is generated. This means every time you change a file, it will have a new name, and our little caching problem is solved!
+
+Browser Caching documentation [here](https://webpack.js.org/guides/caching/)
 
 *HOW COOL IS THAT!?*
 
@@ -400,17 +454,21 @@ To solve this, use content hash, which creates a hash based on the contents of t
 * add `[contenthash]` wherever a filename is specified, such as the `output` object:
 
 ```
-output: {
-  filename: 'bundle.[contenthash].js',
+module.exports = {
+  output: {
+    filename: 'bundle.[contenthash].js',
+  }
 }
 ```
 * Or the minified CSS file:
 ```
-plugins: [
-  new MiniCssExtractPlugin({
-    filename: 'styles.[contenthash].css',
-  })
-],
+module.exports = {
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'styles.[contenthash].css',
+    })
+  ],
+}
 ```
 There's one problem with this: now index.html doesn't know what the file names are. This is why `html-webpack-plugin` is used.
 
