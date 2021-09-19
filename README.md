@@ -41,8 +41,18 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 &nbsp;
 
 ---
----
 
+&nbsp;
+# Getting Started
+
+Follow these steps in order to use this project:
+
+1. Run `npm install`
+2. To use webpack:
+    * For development mode: `npm run dev`
+    * For production mode: `npm run build`
+
+---
 &nbsp;
 # Mode
 
