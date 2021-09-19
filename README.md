@@ -9,36 +9,36 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 &nbsp;
 # Table of Contents
 
-## [Getting Started](https://github.com/ryan-m-may/webpackBoilerplate#getting-started)
+## [Getting Started](https://github.com/ryan-m-may/webpackBoilerplate#getting-started-1)
 
-## [Mode](https://github.com/ryan-m-may/webpackBoilerplate#mode)
+## [Mode](https://github.com/ryan-m-may/webpackBoilerplate#mode-1)
 
 * None
 * Development
 * Production
 
-## [Rules](https://github.com/ryan-m-may/webpackBoilerplate#rules)
+## [Rules](https://github.com/ryan-m-may/webpackBoilerplate#rules-1)
 
-## [Asset Modules](https://github.com/ryan-m-may/webpackBoilerplate#asset-modules)
+## [Asset Modules](https://github.com/ryan-m-may/webpackBoilerplate#asset-modules-1)
 
 * asset/resource
 * asset/inline
 * asset/source
 * asset
 
-## [Loaders](https://github.com/ryan-m-may/webpackBoilerplate#loaders)
+## [Loaders](https://github.com/ryan-m-may/webpackBoilerplate#loaders-1)
 
 * CSS
 * Babel
 
-## [Plugins](https://github.com/ryan-m-may/webpackBoilerplate#plugins)
+## [Plugins](https://github.com/ryan-m-may/webpackBoilerplate#plugins-1)
 
 * terser-webpack-plugin
 * mini-css-extract-plugin
 * clean-webpack-plugin
 * html-webpack-plugin
 
-## [Browser Caching](https://github.com/ryan-m-may/webpackBoilerplate#browser-caching)
+## [Browser Caching](https://github.com/ryan-m-may/webpackBoilerplate#browser-caching-1)
 
 &nbsp;
 
