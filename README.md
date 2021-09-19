@@ -7,6 +7,35 @@ I haven't found much *good* content online regarding webpack, it seems most tuto
 If it doesn't exist, make it! If it exists, but you don't like it, make something better!
 
 &nbsp;
+# Mode
+
+Webpack allows us to set the mode. There are several reasons to change the mode:
+
+* Defining `mode` sets `process.env.NODE_ENV` to `production` or `development` if set to the corresponding option. If none are selected, webpack defaults to `production`.
+
+* Errors are handled differently in `production` compared to `development` mode. It's incredibly difficult to parse the bundled, minified, `production` file, but it's easy to read errors in `development` mode.
+
+* Several plugins are included in `production` mode by default and don't need to be included in the config file. `terser-plugin` is one of these. Production mode is designed to make the codebase streamlined, lightweight and small.
+
+* In `development` mode, certain plugins are unnecessary. Code minification and hashing of filenames is unnecessary because users will never be accessing or caching development builds. Development mode is designed to make the build process quick and cater to developer needs rather than end user needs.
+
+There are 3 options:
+* `none`
+* `development`
+* `production`
+```
+module.exports = {
+  mode: 'none',
+}
+```
+I have built two separate webpack config files:
+* `webpack.development.config.js`
+* `webpack.production.config.js`
+
+Each is designed to cater to it's corresponding environment better and will have a separate `npm` script in `package.json`.
+
+
+&nbsp;
 # Rules:
 
 Rules must be placed inside an array within the `module` object. Individual rules will be contained inside an anonymous object.
@@ -143,6 +172,8 @@ Webpack 5 comes with `terser-webpack-plugin` out of the box, but it must be inst
 * Webpack 4 and below does not come with the plugin.
 * uses `terser` to minify JavaScript.
 ```
+const TerserPlugin = require('terser-webpack-plugin');
+
 plugins: [
   new TerserPlugin()
 ]
@@ -155,6 +186,8 @@ Create a separate CSS file rather than bundling it with the JS file like `style-
 * Recommended to combine `mini-css-extract-plugin` with `css-loader`.
 * Needs to be added to the CSS rule:
 ```
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 rules: [
   {
     test: /\.css$/,
@@ -181,6 +214,8 @@ In order to keep the `dist` directory clean, it's essential to remove files upon
 
 `clean-webpack-plugin` solves this problem.
 ```
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 plugins: [
   new CleanWebpackPlugin()
 ],
@@ -191,6 +226,8 @@ plugins: [
 * `'**/*'` specifies that everything in dist should be cleaned.
 * To clean a directory called `build` that is outside of the `dist` directory, you need the exact path like so:
 ```
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 plugins: [
   new CleanWebpackPlugin({
     cleanOnceBeforeBuildPatterns: [
@@ -200,6 +237,39 @@ plugins: [
   })
 ]
 ```
+---
+
+## html-webpack-plugin
+
+When hashed filenames are used, filepaths can no longer be hardcoded. `html-webpack-plugin` generates a new html file that includes the correct filepaths.
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+plugins: [
+  new HtmlWebpackPlugin()
+]
+```
+
+Additional options can be specified for this plugin to enable more control of the generated file.
+
+[Here's a list of options included in the plugin.](https://github.com/jantimon/html-webpack-plugin#options)
+
+And a link to the documentation for [creating and using an HTML template](https://github.com/jantimon/html-webpack-plugin/blob/main/docs/template-option.md) for even more control over the generated file
+
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+plugins: [
+  new HtmlWebpackPlugin({
+    title: 'Hello World',
+    filename: html/generatedHtml.html,
+    meta: {
+      description: 'Description'
+    }
+  })
+]
+```
+
 ---
 &nbsp;
 # Browser Caching
@@ -228,5 +298,7 @@ plugins: [
   })
 ],
 ```
+There's one problem with this: now index.html doesn't know what the file names are. This is why `html-webpack-plugin` is used.
+
 ---
 &nbsp;
