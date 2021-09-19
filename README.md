@@ -35,7 +35,6 @@ I have built two separate webpack config files:
 Each is designed to cater to it's corresponding environment better and will have a separate `npm` script in `package.json`.
 
 ---
-
 &nbsp;
 # Rules:
 
@@ -53,6 +52,9 @@ module: {
 }
 ```
 ---
+
+&nbsp;
+# Assets
 
 ## asset/resource
 Type `asset/resource` includes the file in the bundled html as a path.
@@ -119,7 +121,7 @@ While Webpack includes asset loaders out of the box, any additional loaders must
 
 ## CSS
 * `css-loader` only reads and returns contents of css file.
-* `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`. This is used in `development` mode.
+* `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`. This is recommended for `development` mode.
 * `mini-css-extract-plugin` is used to create a separate file and is used in place of `style-loader` in `production` mode. Refer to the plugin section below for more details.
 
 ```
