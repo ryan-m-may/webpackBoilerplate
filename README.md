@@ -82,8 +82,7 @@ rules: [
   }
 ]
 ```
-
-
+---
 &nbsp;
 # Loaders
 While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
@@ -187,7 +186,6 @@ plugins: [
 ],
 ```
 ---
-
 &nbsp;
 # Browser Caching
 
