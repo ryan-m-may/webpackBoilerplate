@@ -34,6 +34,7 @@ I have built two separate webpack config files:
 
 Each is designed to cater to it's corresponding environment better and will have a separate `npm` script in `package.json`.
 
+---
 
 &nbsp;
 # Rules:
@@ -118,7 +119,8 @@ While Webpack includes asset loaders out of the box, any additional loaders must
 
 ## CSS
 * `css-loader` only reads and returns contents of css file.
-* `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`.
+* `style-loader` injects css into page using style guides. Bundles it with JavaScript in `bundle.js`. This is used in `development` mode.
+* `mini-css-extract-plugin` is used to create a separate file and is used in place of `style-loader` in `production` mode. Refer to the plugin section below for more details.
 
 ```
 rules: [
@@ -182,6 +184,7 @@ plugins: [
 
 ## mini-css-extract-plugin
 Create a separate CSS file rather than bundling it with the JS file like `style-loader` does.
+* Recommended for `production` mode.
 * Builds on top of a Webpack 5 feature, thus Webpack 5 is required for this plugin to work.
 * Recommended to combine `mini-css-extract-plugin` with `css-loader`.
 * Needs to be added to the CSS rule:
@@ -198,7 +201,7 @@ rules: [
   },
 ],
 ```
-* Needs to be added to plugins.
+* In addition to adding the rule, it also needs to be addded to plugins.
 * Output filename can be set like so:
 ```
 plugins: [
