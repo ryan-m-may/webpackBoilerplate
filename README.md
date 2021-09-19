@@ -9,6 +9,8 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 &nbsp;
 # Table of Contents
 
+## [Getting Started](https://github.com/ryan-m-may/webpackBoilerplate#getting-started)
+
 ## [Mode](https://github.com/ryan-m-may/webpackBoilerplate#mode)
 
 * None
@@ -47,8 +49,9 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 
 Follow these steps in order to use this project:
 
-1. Run `npm install`
-2. To use webpack:
+1. Fork this repository.
+2. Run `npm install`
+3. To use webpack:
     * For development mode: `npm run dev`
     * For production mode: `npm run build`
 
