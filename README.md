@@ -11,6 +11,10 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 
 ## [Mode](https://github.com/ryan-m-may/webpackBoilerplate#mode)
 
+* None
+* Development
+* Production
+
 ## [Rules](https://github.com/ryan-m-may/webpackBoilerplate#rules)
 
 ## [Asset Modules](https://github.com/ryan-m-may/webpackBoilerplate#asset-modules)
@@ -34,7 +38,10 @@ If it doesn't exist, make it! If it exists, but you don't like it, make somethin
 
 ## [Browser Caching](https://github.com/ryan-m-may/webpackBoilerplate#browser-caching)
 
+&nbsp;
 
+---
+---
 
 &nbsp;
 # Mode
