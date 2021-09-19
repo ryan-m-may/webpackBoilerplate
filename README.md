@@ -103,28 +103,32 @@ While developing new features, build time is costly. Quick build changes are val
     * `writeToDisk`: By default, `webpack-dev-server` generates files in memory and doesn't save them to the disk. Dist will be empty, even though application is available in the browser. If set to `true`, `webpack-dev-server` writes generated files to dist directory.
 
 ```
-devServer: {
-  port: 3000,
-  static: {
-    directory: path.resolve(__dirname, './dist'),
-  },
-  devMiddleware: {
-    index: 'index.html',
-    writeToDisk: true,
+module.exports = {
+  devServer: {
+    port: 3000,
+    static: {
+      directory: path.resolve(__dirname, './dist'),
+    },
+    devMiddleware: {
+      index: 'index.html',
+      writeToDisk: true,
+    }
   }
 }
 ```
 Inside `package.json`, both `serve` and `--hot` need to be added to the `dev` script.
-* `serve` is the command for `webpack-dev-server`
+* `serve` is the command to start `webpack-dev-server`
 * `--hot` is the command for hot module replacement. `HMR` exchanges, adds, or removes modules while an application is running, without a full reload.
-    * Retain application state which is lost during a full reload.
-    * Instantly update the browser when modifications are made to CSS/JS in the source code, which is almost comparable to changing styles directly in the browser's dev tools.
+
 
 ```
 "scripts": {
   "dev": "webpack serve --config webpack.development.config.js --hot"
 }
 ```
+>This is great for development because:
+> * Webpack retains application state which is lost during a full reload.
+> * Instantly update the browser when modifications are made to CSS/JS in the source code, which is almost comparable to changing styles directly in the browser's dev tools.
 
 ---
 &nbsp;
