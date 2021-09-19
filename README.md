@@ -185,6 +185,21 @@ plugins: [
   new CleanWebpackPlugin()
 ],
 ```
+* Other directories can be cleaned with additional options.
+* File paths are relative to the directory specified in the `webpack.config.js` path variable.
+* In this case, that directory is `dist`
+* `'**/*'` specifies that everything in dist should be cleaned.
+* To clean a directory called `build` that is outside of the `dist` directory, you need the exact path like so:
+```
+plugins: [
+  new CleanWebpackPlugin({
+    cleanOnceBeforeBuildPatterns: [
+      '**/*',
+      path.join(process.cwd(), 'build/**/*')
+    ]
+  })
+]
+```
 ---
 &nbsp;
 # Browser Caching
@@ -214,3 +229,4 @@ plugins: [
 ],
 ```
 ---
+&nbsp;
