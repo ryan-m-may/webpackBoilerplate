@@ -136,7 +136,7 @@ Inside `package.json`, both `serve` and `--hot` need to be added to the `dev` sc
 
 Rules is an array of rules within the `module` object. Individual rules are anonymous object and have three parts: `conditions`, `results`, and `nested rules`.
 
-[Module documentation](https://webpack.js.org/configuration/module/)
+Rule documentation [here](https://webpack.js.org/configuration/module/#rule).
 ```
 module.exports = {
   module: {
@@ -158,7 +158,7 @@ module.exports = {
 
 Asset modules enable asset files to be used without configuring additional loaders. Asset modules come built in with webpack 5 and things like `raw-loader`, `url-loader` and `file-loader` are unnecessary.
 
-[Asset Modules documentation](https://webpack.js.org/guides/asset-modules/)
+Asset Modules documentation [here](https://webpack.js.org/guides/asset-modules/).
 
 
 ## asset/resource
@@ -235,7 +235,7 @@ rules: [
 # Loaders
 While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
 
-[Loader documentation](https://webpack.js.org/loaders/)
+Loader documentation [here](https://webpack.js.org/loaders/)
 
 ## CSS
 * `css-loader` only reads and returns contents of css file.
@@ -260,25 +260,39 @@ Babel allows newer ECMAScript features to be transpiled into older versions. Thi
 * `@babel/env` compiles ECMAScript 6 and newer to ECMAScript 5.
 * Babel plugins handle new features not covered by `@babel/env`
 
-*Plugin/Preset order matters!*
-* Plugins run before presets
-* Plugin ordering is first to last
-* Preset ordering is reversed (last to first)
+Documentation for `babel-loader` [here](https://webpack.js.org/loaders/babel-loader/).
+
+Babel config documentation [here](https://babeljs.io/setup#installation). (Choose the `webpack` option.)
+
+Hooking Babel up to the webpack config file looks like this:
+
 ```
-rules: [
-  {
-    test: /\.js$/,
-    exclude: /node_modules/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        presets: [ '@babel/preset-env' ],
-        plugins: [ '@babel/plugin-proposal-class-properties' ]
+module.exports = {
+  rules: [
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [ '@babel/preset-env' ],
+          plugins: [ '@babel/plugin-proposal-class-properties' ]
+        }
       }
     }
-  }
-]
+  ]
+}
 ```
+
+>*Plugin/Preset order matters!*
+>* Plugins run before presets
+>* Plugin ordering is first to last
+>* Preset ordering is reversed (last to first)
+
+Babel's documentation for configuration [here](https://babeljs.io/docs/en/configuration).
+
+Babel's documentation for configuring `babel.config.json` [here](https://babeljs.io/docs/en/config-files#project-wide-configuration).
+
 ---
 &nbsp;
 # Plugins
@@ -368,7 +382,7 @@ In order to keep the `dist` directory clean, it's essential to remove files upon
 >
 > As of writing this, there is currently a bug with `output.clean` when using `webpack-dev-server` if `devServer.writeToDisk` is set to `true`.
 >
-> I'm using `webpack` v5.53.0 and `webpack-dev-server` v4.2.1 currently.
+> I'm using `webpack` v5.53.0 and `webpack-dev-server` v4.2.1 while writing this.
 >
 > There's a discussion on github regarding this issue. To check it's current status go [here](https://github.com/webpack/webpack-dev-middleware/issues/861).
 >
@@ -405,7 +419,10 @@ module.exports = {
 
 ## html-webpack-plugin
 
-When hashed filenames are used, filepaths can no longer be hardcoded. `html-webpack-plugin` generates a new html file that includes the correct filepaths.
+When `[contenthash]` ([see caching below](https://github.com/ryan-m-may/webpackBoilerplate#browser-caching-1)) is used to generated hashed filenames, the filenames become dynamic and filepaths can no longer be hardcoded in the HTML document. To solve this problem, `html-webpack-plugin` can be used to generate an HTML file that includes the correct filepaths every time a new hash is generated.
+
+`html-webpack-plugin` documentation [here](https://webpack.js.org/plugins/html-webpack-plugin/).
+
 ```
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
