@@ -487,7 +487,7 @@ module.exports = {
   ],
 }
 ```
-There's one problem with this: now index.html doesn't know what the file names are. This is why `html-webpack-plugin` is used.
+There's one problem with this: when a file is dynamically renamed with this hash, the static `index.html` isn't updated with the new name. Using `html-webpack-plugin` to generate a new html template that includes the correct hashed filenames solves this problem.
 
 ---
 &nbsp;
