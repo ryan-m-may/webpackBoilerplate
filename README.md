@@ -7,6 +7,36 @@ I haven't found much *good* content online regarding webpack, it seems most tuto
 If it doesn't exist, make it! If it exists, but you don't like it, make something better!
 
 &nbsp;
+# Table of Contents
+
+## [Mode](https://github.com/ryan-m-may/webpackBoilerplate#mode)
+
+## [Rules](https://github.com/ryan-m-may/webpackBoilerplate#rules)
+
+## [Asset Modules](https://github.com/ryan-m-may/webpackBoilerplate#asset-modules)
+
+* asset/resource
+* asset/inline
+* asset/source
+* asset
+
+## [Loaders](https://github.com/ryan-m-may/webpackBoilerplate#loaders)
+
+* CSS
+* Babel
+
+## [Plugins](https://github.com/ryan-m-may/webpackBoilerplate#plugins)
+
+* terser-webpack-plugin
+* mini-css-extract-plugin
+* clean-webpack-plugin
+* html-webpack-plugin
+
+## [Browser Caching](https://github.com/ryan-m-may/webpackBoilerplate#browser-caching)
+
+
+
+&nbsp;
 # Mode
 
 Webpack allows us to set the mode. There are several reasons to change the mode:
@@ -88,6 +118,22 @@ rules: [
 ```
 ---
 
+
+
+## asset/source
+Type `asset/source` exports content of file as a JavaScript `string` and injects it into the bundle as is. Previously done with `raw-loader`.
+
+* This is useful for `.txt` files.
+```
+rules: [
+  {
+    tests: /\.txt$/,
+    type: 'asset/source'
+  }
+]
+```
+---
+
 ## asset
 Type `asset` will allow webpack to make it's own decision based on file size.
 
@@ -112,19 +158,6 @@ rules: [
 ```
 ---
 
-## asset/source
-Type `asset/source` exports content of file as a JavaScript `string` and injects it into the bundle as is. Previously done with `raw-loader`.
-
-* This is useful for `.txt` files.
-```
-rules: [
-  {
-    tests: /\.txt$/,
-    type: 'asset/source'
-  }
-]
-```
----
 &nbsp;
 # Loaders
 While Webpack includes asset loaders out of the box, any additional loaders must be installed as dependencies to the application. Multiple loaders can be included in a single rule.
