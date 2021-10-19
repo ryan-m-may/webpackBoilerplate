@@ -2,9 +2,9 @@
 
 The intent of this project is to familiarize myself with how webpack works by diving into the documentation and setting up the best webpack boilerplate I can. This is also an exercise in autonomy and self-study.
 
-I haven't found much *good* content online regarding webpack, it seems most tutorials and blogs revolve around `create-react-app`, so I'm using this readme to create my own lightweight documentation for future reference. That's what we do as software developers, right?
+The content I've found online about webpack has been difficult to use or poorly written, and it seems most tutorials and blogs revolve around `create-react-app`, so I'm using this readme to create my own lightweight documentation for future reference.
 
-If it doesn't exist, make it! If it exists, but you don't like it, make something better!
+If it doesn't exist, make it! If it exists, but you don't like it or it doesn't work, make something better! That's my philosophy.
 
 &nbsp;
 # Table of Contents
